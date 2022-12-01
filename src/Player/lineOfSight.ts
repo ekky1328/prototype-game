@@ -12,8 +12,15 @@ export function lineOfSight(xypath: coordinates[], targetPlayerInfo: player_info
     let lowerLimitFov = sourcePlayerInfo.current_position.rotation > (angleToTarget + 90) - FOV;
     let higherLimitFov = sourcePlayerInfo.current_position.rotation < (angleToTarget + 90) + FOV;
 
-    if (lowerLimitFov && higherLimitFov) {
+    const canSeePlayer = targetPoint.x - 5 < targetPlayerInfo.current_position.x // If player is 5px to the right of los
+                         && targetPoint.x + 5 > targetPlayerInfo.current_position.x  // If player is 5px to the left of los
+                         && targetPoint.y - 5 < targetPlayerInfo.current_position.y // If player is 5px below the los
+                         && targetPoint.y + 5 > targetPlayerInfo.current_position.y; // If player is 5px above the los
+
+    if (lowerLimitFov && higherLimitFov && canSeePlayer) {
         facingTarget = true;
+    } else {
+        facingTarget = false;
     }
 
     if (facingTarget) {
@@ -40,6 +47,8 @@ export function debugLineOfSight(xypath: coordinates[], targetPlayerInfo: player
     let facingTarget = false;
     let lowerLimitFov = sourcePlayerInfo.current_position.rotation > (angleToTarget + 90) - FOV;
     let higherLimitFov = sourcePlayerInfo.current_position.rotation < (angleToTarget + 90) + FOV;
+
+    console.log(targetPoint, targetPlayerInfo.current_position)
 
     if (lowerLimitFov && higherLimitFov) {
         facingTarget = true;

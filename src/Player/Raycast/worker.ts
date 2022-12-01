@@ -50,17 +50,15 @@ function generateRayCast(data: RaycastWorkerData) : string {
     let raycastPath = [];
     if (config.type === 'CORNERS') { 
         const allCorners = {} as CollissionMap
-        Object.keys(environment.collissions).forEach( collish => {
+        Object.keys(environment.corners).forEach( collish => {
             let [ x, y ] = collish.split(',');
-            let collision_config = environment.collissions[collish];
+            let collision_config = environment.corners[collish];
 
             const angleToCorner = getAngle(playerInfo.current_position.x, playerInfo.current_position.y, Number(x), Number(y));
             collision_config.angleFromPlayer = angleToCorner;
             collision_config.isVisible = angleToCorner > lowerLimit && angleToCorner < upperLimit;
-
-            if (collision_config.isCorner) {
-                allCorners[collish] = _.cloneDeep(collision_config);
-            }
+            
+            allCorners[collish] = _.cloneDeep(collision_config);
         });
         
         Object.keys(allCorners).forEach((cornerCoord) => {

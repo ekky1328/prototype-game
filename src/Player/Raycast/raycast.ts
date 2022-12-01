@@ -72,21 +72,24 @@ export function generateRayCast(playerInfo : player_info, config : raycast_confi
                 y: Number(y)
             }, environment.collissions);
 
-            // Send a ray -1 degree from current corner
             if (collision_config.isVisible && collision_config.angleFromPlayer) {
+
+                // Send a ray -5 degree from current corner
                 let oneUp = getIntersectingPath(
                     playerInfo.current_position.x,
                     playerInfo.current_position.y, 
                     SPEED, 
-                    Math.floor(collision_config.angleFromPlayer) - SPEED, 
+                    Math.floor(collision_config.angleFromPlayer) - 5, 
                     environment.collissions,
                     `ray-123`, 
                 );
+
+                // Send a ray +5 degree from the current corner
                 let oneDown = getIntersectingPath(
                     playerInfo.current_position.x,
                     playerInfo.current_position.y, 
                     SPEED, 
-                    Math.floor(collision_config.angleFromPlayer) + SPEED, 
+                    Math.floor(collision_config.angleFromPlayer) + 5, 
                     environment.collissions,
                     `ray-123`, 
                 );
@@ -97,8 +100,6 @@ export function generateRayCast(playerInfo : player_info, config : raycast_confi
                 raycastPath.push({ x: oneUpCoords.x, y: oneUpCoords.y, d: Math.floor(collision_config.angleFromPlayer) - 5})
                 raycastPath.push({ x: oneDownCoords.x, y: oneDownCoords.y, d: Math.floor(collision_config.angleFromPlayer) + 5})
             }
-
-            // Send a ray +1 degree from the current corner
 
             if (collision_config.isVisible) {
                 let lastCoord = path[path.length - 1];

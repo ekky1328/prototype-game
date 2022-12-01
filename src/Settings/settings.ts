@@ -1,4 +1,4 @@
-import { app, SETTINGS } from "../main";
+import { SETTINGS } from "../main";
 import { removeElements } from "../Utilities/removeElements";
 
 export function toggleSettings() {
@@ -23,7 +23,7 @@ debugInputEl.addEventListener('change', () => {
         SETTINGS.debug = false
     }
 
-    app.focus()
+    debugInputEl.blur();
 })
 
 raycastingInputEl.addEventListener('change', () => {
@@ -38,5 +38,5 @@ raycastingInputEl.addEventListener('change', () => {
         document.getElementById('fog-of-war')?.classList.remove('d-none')
     }
 
-    app.focus()
+    raycastingInputEl.blur();
 })
