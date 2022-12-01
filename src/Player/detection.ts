@@ -2,7 +2,7 @@ import { environment } from "../Environment/environment";
 import { getPlayerInfo } from "../Globals/Players";
 import { SETTINGS } from '../main';
 import { generateDirectPath } from '../Utilities/generateDirectPath';
-import { debugLineOfSight, drawLineOfSight } from './lineOfSight';
+import { debugLineOfSight, lineOfSight } from './lineOfSight';
 
 
 export function detectOtherPlayers(targetPlayerId: number) {
@@ -26,7 +26,7 @@ export function detectOtherPlayers(targetPlayerId: number) {
             if (SETTINGS.debug) {
                 debugLineOfSight(path, targerPlayerInfo, playerInfo, targetPlayerElement);
             } else {
-                drawLineOfSight(path, targerPlayerInfo, playerInfo, targetPlayerElement);
+                lineOfSight(path, targerPlayerInfo, playerInfo, targetPlayerElement);
             }
 
         }

@@ -1,4 +1,5 @@
-import { SETTINGS } from "../main";
+import { app, SETTINGS } from "../main";
+import { removeElements } from "../Utilities/removeElements";
 
 export function toggleSettings() {
 
@@ -17,12 +18,25 @@ debugInputEl.addEventListener('change', () => {
     if (debugSetting === 'true') {
         SETTINGS.debug = true
     } else {
+        removeElements(document.querySelectorAll('.ray'));
+        removeElements(document.querySelectorAll('.los'));
         SETTINGS.debug = false
     }
+
+    app.focus()
 })
 
 raycastingInputEl.addEventListener('change', () => {
     // @ts-ignore
-    let raycastSetting = debugInputEl.value;
+    let raycastSetting = raycastingInputEl.value;
     SETTINGS.raycast.type = raycastSetting
+    
+    if (raycastSetting === 'DISABLED') {
+        removeElements(document.querySelectorAll('.ray'));
+        document.getElementById('fog-of-war')?.classList.add('d-none')
+    } else {
+        document.getElementById('fog-of-war')?.classList.remove('d-none')
+    }
+
+    app.focus()
 })

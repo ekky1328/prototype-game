@@ -3,7 +3,7 @@ import { app } from '../main';
 import { getDistance } from '../Utilities/getDistance';
 import { FOV } from './player';
 
-export function drawLineOfSight(xypath: coordinates[], targetPlayerInfo: player_info, sourcePlayerInfo: player_info, targetPlayerEl?: HTMLElement) {
+export function lineOfSight(xypath: coordinates[], targetPlayerInfo: player_info, sourcePlayerInfo: player_info, targetPlayerEl?: HTMLElement) {
     const startingPoint = xypath[0];
     const targetPoint = xypath[xypath.length - 1];
     const angleToTarget = getAngle(startingPoint.x, startingPoint.y, targetPoint.x, targetPoint.y);

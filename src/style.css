@@ -6,7 +6,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #262626;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -31,7 +31,7 @@ body {
   position: relative;
   height: 3000px;
   width: 3000px;
-  /* border: 1px solid #47ff5e; */
+  background-color: #282a36;
 }
 
 .d-none {
@@ -45,10 +45,11 @@ body {
 #settings {
   position: absolute;
   z-index: 9000;
-  background: #2c2c2c;
+  background: #282a36;
   padding: 8px;
   border-radius: 4px;
-  top: 1444px;
+  top: 1476px;
   left: 1500px;
-  scale: 1.75;
+  scale: 1.2;
+  border: 1px solid #505263;
 }

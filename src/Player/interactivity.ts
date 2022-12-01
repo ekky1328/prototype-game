@@ -74,7 +74,7 @@ export function addPlayerInteractivity(renderedPlayerElement: HTMLElement, targe
 
             detectOtherPlayers(playerInfo.id);
 
-            if (SETTINGS.raycast) {
+            if (SETTINGS.raycast.type !== "DISABLED") {
                 if (SETTINGS.raycast.type === 'WEB_WORKER') {
                     generate2dRaycast({ SETTINGS, FOV, PLAYER_HIT_BOX, SPEED, player_info: playerInfo, raycast_config : { type: RaycastTypes.CORNERS } });
                 } else if (SETTINGS.raycast.type === 'MAIN_THREAD') {
