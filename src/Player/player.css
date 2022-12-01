@@ -1,0 +1,107 @@
+/* Player */
+.player {
+    position: absolute;
+    height: 42px;
+    width: 42px;
+    border-radius: 25px;
+    transition: opacity 250ms ease-out;
+    opacity: 0;
+}
+
+.player::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 21px;
+    height: 12px;
+    width: 1px;
+}
+
+.player.visible {
+    opacity: 1;
+}
+
+.player.same-team-not-visible {
+    height: 20px !important;
+    width: 20px !important;
+    border-radius: 3px !important;
+    opacity: 1;
+    animation: flash 4s infinite;
+}
+
+@keyframes flash {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.player.same-team-not-visible::after {
+    display: none;
+}
+
+/* Team Colors */
+.player.team-1 {
+    border: 1px solid rgb(251, 255, 0);
+}
+
+.player.team-1.same-team-not-visible {
+    background: rgb(251, 255, 0);
+}
+
+.player.team-1::after {
+    background-color: rgb(251, 255, 0);
+}
+
+.player.team-2 {
+    border: 1px solid red;
+}
+
+.player.team-2::after {
+    background-color: red;
+}
+
+.player.team-3 {
+    border: 1px solid rgb(247, 0, 255);
+}
+
+.player.team-3::after {
+    background-color: rgb(247, 0, 255);
+}
+
+
+/* Debugging */
+.los {
+    position: absolute;
+    height: 1px;
+    background-color: red;
+    transform-origin: top left;
+}
+
+.ray { 
+    position: absolute;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 1);
+    transform-origin: top left;
+}
+
+.ray.corner[data-visible="true"] {
+    height: 0px;
+    background-color: rgba(255, 255, 255, 0);
+    border-top: 1px dotted orange;
+}
+
+.ray.corner[data-visible="false"] {
+    display: none;
+}
