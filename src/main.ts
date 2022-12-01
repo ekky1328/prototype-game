@@ -13,7 +13,7 @@ export const MAP_OFFSET = 1500;
 export const SETTINGS = {
   debug : false,
   raycast: {
-    type: 'main_thread'
+    type: 'MAIN_THREAD'
   }
 };
 

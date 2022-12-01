@@ -1,5 +1,4 @@
 #fog-of-war {
     position: absolute;
     background-color: rgb(179 179 179 / 50%);
-    filter: blur(4px);
 }

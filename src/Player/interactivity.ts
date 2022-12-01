@@ -5,6 +5,7 @@ import { detectOtherPlayers } from './detection';
 import { environment } from "../Environment/environment";
 import { keys, HELD_DIRECTIONS, directions, SPEED, PLAYER_HIT_BOX, FOV } from './player';
 import { generateRayCast, generate2dRaycast, RaycastTypes } from "./Raycast/raycast";
+import { toggleSettings } from "../Settings/settings";
 
 export function addPlayerInteractivity(renderedPlayerElement: HTMLElement, targetPlayerId: number) {
     let playerInfo = getPlayerInfo(targetPlayerId) as player_info;
@@ -16,6 +17,10 @@ export function addPlayerInteractivity(renderedPlayerElement: HTMLElement, targe
         if (dir && HELD_DIRECTIONS.indexOf(dir) === -1) {
             // @ts-ignore
             HELD_DIRECTIONS.unshift(directions[dir]);
+        }
+
+        if (e.key.toLowerCase() === 'l') {
+            toggleSettings()
         }
 
         renderedPlayerElement.setAttribute('moving', 'true');
@@ -70,9 +75,9 @@ export function addPlayerInteractivity(renderedPlayerElement: HTMLElement, targe
             detectOtherPlayers(playerInfo.id);
 
             if (SETTINGS.raycast) {
-                if (SETTINGS.raycast.type === 'web_worker') {
+                if (SETTINGS.raycast.type === 'WEB_WORKER') {
                     generate2dRaycast({ SETTINGS, FOV, PLAYER_HIT_BOX, SPEED, player_info: playerInfo, raycast_config : { type: RaycastTypes.CORNERS } });
-                } else if (SETTINGS.raycast.type === 'main_thread') {
+                } else if (SETTINGS.raycast.type === 'MAIN_THREAD') {
                     generateRayCast(playerInfo, { type: RaycastTypes.CORNERS })
                 }
             }

@@ -33,3 +33,22 @@ body {
   width: 3000px;
   /* border: 1px solid #47ff5e; */
 }
+
+.d-none {
+  display: none;
+}
+
+.ml-2 {
+  margin-left: 8px;
+}
+
+#settings {
+  position: absolute;
+  z-index: 9000;
+  background: #2c2c2c;
+  padding: 8px;
+  border-radius: 4px;
+  top: 1444px;
+  left: 1500px;
+  scale: 1.75;
+}
