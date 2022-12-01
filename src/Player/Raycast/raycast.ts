@@ -34,8 +34,8 @@ export function generateRayCast(playerInfo : player_info, config : raycast_confi
 
     let lowerLimit = playerInfo.current_position.rotation - 90 - FOV;
     let upperLimit = playerInfo.current_position.rotation - 90 + FOV;
-    let lowerLimitPath = getIntersectingPath(playerInfo.current_position.x, playerInfo.current_position.y, 1000, lowerLimit, environment.collissions,`ray-lower`);
-    let upperLimitPath = getIntersectingPath(playerInfo.current_position.x, playerInfo.current_position.y, 1000, upperLimit, environment.collissions,`ray-upper`);
+    let lowerLimitPath = getIntersectingPath(playerInfo.current_position.x, playerInfo.current_position.y, SPEED, lowerLimit, environment.collissions,`ray-lower`);
+    let upperLimitPath = getIntersectingPath(playerInfo.current_position.x, playerInfo.current_position.y, SPEED, upperLimit, environment.collissions,`ray-upper`);
 
     let lowerLimitCoords = lowerLimitPath[lowerLimitPath.length - 1]
     let upperLimitCoords = upperLimitPath[upperLimitPath.length - 1]
@@ -119,7 +119,7 @@ export function generateRayCast(playerInfo : player_info, config : raycast_confi
             let path = getIntersectingPath(
                 playerInfo.current_position.x,
                 playerInfo.current_position.y, 
-                3, 
+                SPEED, 
                 Math.floor(degree),
                 environment.collissions,
                 `ray-123`, 
