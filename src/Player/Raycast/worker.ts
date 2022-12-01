@@ -1,8 +1,27 @@
 import * as _ from 'lodash'
 
+let environment = { 
+    limits: {
+        left : 0,
+        right : 3000,
+        top : 0,
+        bottom : 3000,
+    },
+} as Environment;
+
 onmessage = (e: MessageEvent)  => {
-    const polygonPath = generateRayCast(e.data);
-    postMessage(polygonPath)
+    if (e.data.messageType === 'ENVIRONMENT') {
+        environment = e.data.payload;
+        return;
+    }
+
+    if (e.data.messageType === 'RAY_CAST') {
+        const polygonPath = generateRayCast(e.data.payload);
+        postMessage(polygonPath)
+        return;
+    }
+
+    return;
 }
 
 function generateRayCast(data: RaycastWorkerData) : string {
@@ -10,7 +29,6 @@ function generateRayCast(data: RaycastWorkerData) : string {
     const { 
         player_info : playerInfo, 
         raycast_config: config, 
-        environment, 
         SPEED, 
         FOV,
         PLAYER_HIT_BOX

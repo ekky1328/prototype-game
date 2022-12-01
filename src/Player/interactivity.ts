@@ -1,10 +1,10 @@
 import { ACTIVE_PLAYER, getPlayerInfo } from "../Globals/Players";
 import { getAngle } from '../Utilities/getAngle';
-import { MAP_OFFSET } from '../main';
+import { MAP_OFFSET, SETTINGS } from '../main';
 import { detectOtherPlayers } from './detection';
 import { environment } from "../Environment/environment";
-import { keys, HELD_DIRECTIONS, directions, SPEED, PLAYER_HIT_BOX } from './player';
-import { generateRayCast, RaycastTypes } from "./Raycast/raycast";
+import { keys, HELD_DIRECTIONS, directions, SPEED, PLAYER_HIT_BOX, FOV } from './player';
+import { generateRayCast, generate2dRaycast, RaycastTypes } from "./Raycast/raycast";
 
 export function addPlayerInteractivity(renderedPlayerElement: HTMLElement, targetPlayerId: number) {
     let playerInfo = getPlayerInfo(targetPlayerId) as player_info;
@@ -50,18 +50,7 @@ export function addPlayerInteractivity(renderedPlayerElement: HTMLElement, targe
 
     setInterval(() => {
         if (playerInfo && ACTIVE_PLAYER === playerInfo.id && window.visualViewport) {
-            // generate2dRaycast({
-            //     SETTINGS,
-            //     FOV,
-            //     PLAYER_HIT_BOX,
-            //     SPEED,
-            //     player_info: playerInfo,
-            //     environment,
-            //     raycast_config : {
-            //         type: RaycastTypes.CORNERS
-            //     }
-            // });
-            generateRayCast(playerInfo, { type: RaycastTypes.CORNERS })
+            // generateRayCast(playerInfo, { type: RaycastTypes.CORNERS })
         }
     })
 
@@ -74,16 +63,24 @@ export function addPlayerInteractivity(renderedPlayerElement: HTMLElement, targe
             let newX = playerInfo.current_position.x
             let newY = playerInfo.current_position.y
             let newRotation = playerInfo.current_position.rotation
-            
-            window.requestAnimationFrame(() => {
-                renderedPlayerElement.style.transform = `translate3d(${newX}px, ${newY}px, 0) rotate(${newRotation}deg)`;
-            });
-
             let cameraX = (playerInfo.current_position.x + MAP_OFFSET) - window.visualViewport.width / 2;
             let cameraY = (playerInfo.current_position.y + MAP_OFFSET) - window.visualViewport.height / 2;
             window.scrollTo(cameraX, cameraY);
 
             detectOtherPlayers(playerInfo.id);
+
+            if (SETTINGS.raycast) {
+                if (SETTINGS.raycast.type === 'web_worker') {
+                    generate2dRaycast({ SETTINGS, FOV, PLAYER_HIT_BOX, SPEED, player_info: playerInfo, raycast_config : { type: RaycastTypes.CORNERS } });
+                } else if (SETTINGS.raycast.type === 'main_thread') {
+                    generateRayCast(playerInfo, { type: RaycastTypes.CORNERS })
+                }
+            }
+
+            window.requestAnimationFrame(() => {
+                renderedPlayerElement.style.transform = `translate3d(${newX}px, ${newY}px, 0) rotate(${newRotation}deg)`;
+            });
+
         }
 
     });

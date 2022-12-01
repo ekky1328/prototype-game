@@ -1,5 +1,8 @@
 interface GameSettings {
   debug : boolean
+  raycast : {
+    type: string
+  }
 }
 
 interface player_info {
@@ -50,7 +53,8 @@ type Environment = {
     top : number;
     bottom : number;
   },
-  collissions : CollissionMap
+  collissions : CollissionMap,
+  corners: CollissionMap
 }
 
 interface CollissionMap {
@@ -84,5 +88,4 @@ type RaycastWorkerData = {
   SPEED : number;
   player_info: player_info;
   raycast_config: raycast_config;
-  environment: Environment;
 }

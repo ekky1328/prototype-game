@@ -6,6 +6,7 @@ import { app } from "../../main";
 import { getElementCoordinates } from "../../Utilities/getElementCoordinates";
 import { getRandomNumber } from "../../Utilities/getRandomNumber";
 import { environment } from '../environment';
+import { RaycastWorker } from '../../Player/Raycast/raycast';
 
 export function createWall(wallInfo : wall_info) {
 
@@ -68,7 +69,16 @@ export function addWallToCollissions(element : HTMLElement) {
         collissionsToAdd[`${Math.floor(coords.left)},${Math.floor(y)}`] = face_collission;
     }
     
-    environment.collissions = {...newCollissions, ...collissionsToAdd}
+    environment.collissions = {...newCollissions, ...collissionsToAdd};
+    environment.corners = {};
+
+    _.map(environment.collissions, (collission, coord) => {
+        if (collission.isCorner) {
+            environment.corners[coord] = collission
+        }
+    });
+
+    RaycastWorker.postMessage({ messageType: 'ENVIRONMENT', payload: environment})
 
     return;
 }

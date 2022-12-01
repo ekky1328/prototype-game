@@ -11,7 +11,10 @@ import { createWall } from './Environment/Wall/wall';
 export const app = document.getElementById('app') as HTMLElement;
 export const MAP_OFFSET = 1500;
 export const SETTINGS = {
-  debug : false
+  debug : false,
+  raycast: {
+    type: 'main_thread'
+  }
 };
 
 let PLAYER_1 = {
